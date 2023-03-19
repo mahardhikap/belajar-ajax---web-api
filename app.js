@@ -10,5 +10,6 @@ req.onerror = function () {
   console.log('Error', this);
 };
 
-req.open('GET', 'https://swapi.dev/api/people/1');
+req.open('GET', 'https://swapi.dev/api/people/1', true);
+myReq.setRequestHeader('Accept', 'application/json');
 req.send();
