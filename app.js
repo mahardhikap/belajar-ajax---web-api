@@ -14,28 +14,36 @@
 // myReq.setRequestHeader('Accept', 'application/json');
 // req.send();
 
-fetch('https://swapi.dev/api/people/1')
-  .then((res) => {
-    console.log('Request ke 1')
-    if (!res.ok) {
-      throw Error('Could not fetch the data for that resource');
-    }
-    return res.json();
-  })
-  .then((data) => {
-    console.log('json ke 1', data);
-    return fetch('https://swapi.dev/api/people/2');
-  })
-  .then((res) => {
-    console.log('Request ke 2');
-    if (!res.ok) {
-      throw Error('Could not fetch the data for that resource');
-    }
-    return res.json();
-  })
-  .then((data) => {
-    console.log('json ke 2', data);
-  })
-  .catch((err) => {
-    console.log('error', err);
-  });
+// fetch('https://swapi.dev/api/people/1')
+//   .then((res) => {
+//     console.log('Request ke 1')
+//     if (!res.ok) {
+//       throw Error('Could not fetch the data for that resource');
+//     }
+//     return res.json();
+//   })
+//   .then((data) => {
+//     console.log('json ke 1', data);
+//     return fetch('https://swapi.dev/api/people/2');
+//   })
+//   .then((res) => {
+//     console.log('Request ke 2');
+//     if (!res.ok) {
+//       throw Error('Could not fetch the data for that resource');
+//     }
+//     return res.json();
+//   })
+//   .then((data) => {
+//     console.log('json ke 2', data);
+//   })
+//   .catch((err) => {
+//     console.log('error', err);
+//   });
+
+const loadPeople = async () => {
+  const rest = await fetch('https://swapi.dev/api/people/1');
+  const data = await rest.json();
+  console.log(data);
+};
+
+loadPeople();
