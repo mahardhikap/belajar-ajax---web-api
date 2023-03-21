@@ -47,6 +47,7 @@ axios
   })
   .catch((err) => {
     console.log(err);
+    alert(err.message);
   });
 
 // const loadPeople = async () => {
