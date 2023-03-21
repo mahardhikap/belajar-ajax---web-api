@@ -41,7 +41,7 @@
 //   });
 
 axios
-  .get('https://swapi.dev/api/people/1')
+  .get('https://swapi.dev/api/people12345/1')
   .then((res) => {
     console.log(res.data);
   })
