@@ -50,17 +50,17 @@
 //     alert(err.message);
 //   });
 
-const getPeople = async (id) => {
-  try {
-    const res = await axios.get(`https://swapi.dev/api/people/${id}`);
-    console.log(res.data);
-  } catch (error) {
-    console.log(error);
-    console.log(error.message);
-    console.log(error.response.status);
-    console.log(error.response.data);
-  }
-};
+// const getPeople = async (id) => {
+//   try {
+//     const res = await axios.get(`https://swapi.dev/api/people/${id}`);
+//     console.log(res.data);
+//   } catch (error) {
+//     console.log(error);
+//     console.log(error.message);
+//     console.log(error.response.status);
+//     console.log(error.response.data);
+//   }
+// };
 
 // const loadPeople = async () => {
 //   try {
@@ -77,3 +77,29 @@ const getPeople = async (id) => {
 // };
 
 // loadPeople();
+
+const jokes = document.querySelector('#jokes');
+const button = document.querySelector('button');
+
+const addJoke = async () => {
+  const jokeText = await getJokes();
+  const newLI = document.createElement('LI');
+  newLI.append(jokeText);
+  jokes.append(newLI);
+};
+
+const getJokes = async () => {
+  try {
+    const config = {
+      headers: {
+        Accept: 'application/json',
+      },
+    };
+    const res = await axios.get('https://icanhazdadjoke.com/', config);
+    return res.data.joke;
+  } catch (error) {
+    return 'No jokes available!';
+  }
+};
+
+button.addEventListener('click', addJoke);
