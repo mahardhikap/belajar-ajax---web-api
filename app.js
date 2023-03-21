@@ -78,28 +78,55 @@
 
 // loadPeople();
 
-const jokes = document.querySelector('#jokes');
-const button = document.querySelector('button');
+// const jokes = document.querySelector('#jokes');
+// const button = document.querySelector('button');
 
-const addJoke = async () => {
-  const jokeText = await getJokes();
-  const newLI = document.createElement('LI');
-  newLI.append(jokeText);
-  jokes.append(newLI);
-};
+// const addJoke = async () => {
+//   const jokeText = await getJokes();
+//   const newLI = document.createElement('LI');
+//   newLI.append(jokeText);
+//   jokes.append(newLI);
+// };
 
-const getJokes = async () => {
-  try {
-    const config = {
-      headers: {
-        Accept: 'application/json',
-      },
-    };
-    const res = await axios.get('https://icanhazdadjoke.com/', config);
-    return res.data.joke;
-  } catch (error) {
-    return 'No jokes available!';
+// const getJokes = async () => {
+//   try {
+//     const config = {
+//       headers: {
+//         Accept: 'application/json',
+//       },
+//     };
+//     const res = await axios.get('https://icanhazdadjoke.com/', config);
+//     return res.data.joke;
+//   } catch (error) {
+//     return 'No jokes available!';
+//   }
+// };
+
+// button.addEventListener('click', addJoke);
+
+const form = document.querySelector('#search-form');
+
+form.addEventListener('submit', async (e) => {
+  //jangan lupa kasih async dan await untuk proses agar berjalan
+  e.preventDefault(); //untuk mencegah pergi ke halaman lain saat dipencet find
+
+  document.querySelectorAll('img').forEach((img) => img.remove()); //untuk otomatis hapus gambar yang disearch sebelumnya dengan gambar baru yang disearch
+
+  const keyword = form.elements.query.value;
+  const config = {
+    params: { q: keyword }, //query search
+  };
+  const res = await axios.get(`https://api.tvmaze.com/search/shows`, config); //ini harus pakai await untuk nunggu response
+  getImages(res.data);
+  form.elements.query.value = ''; //untuk mengkosongkan kolom find secara otomatis setelah klik tombol find
+});
+
+const getImages = (shows) => {
+  for (let result of shows) {
+    if (result.show.image) {
+      const img = document.createElement('img');
+      img.src = result.show.image.medium;
+      document.body.append(img); //menambahkan image agar muncul di laman html
+    }
   }
 };
-
-button.addEventListener('click', addJoke);
